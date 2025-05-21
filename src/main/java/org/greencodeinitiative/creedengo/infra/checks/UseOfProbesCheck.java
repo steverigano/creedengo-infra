@@ -26,7 +26,7 @@ import org.sonar.iac.helm.tree.api.FieldNode;
 import org.sonar.iac.helm.tree.api.Node;
 import org.sonar.iac.kubernetes.visitors.KubernetesCheckContext;
 
-@Rule(key = "GCI94")
+@Rule(key = "GCI1024")
 public class UseOfProbesCheck implements IacCheck {
   private static final String MESSAGE = "Please configure the probes to ensure the application is healthy and ready.";
 
