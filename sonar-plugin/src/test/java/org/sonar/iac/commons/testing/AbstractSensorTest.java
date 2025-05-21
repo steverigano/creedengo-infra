@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.greencodeinitiative.creedengo.testing;
+package org.sonar.iac.commons.testing;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -37,6 +37,7 @@ import org.sonar.api.issue.NoSonarFilter;
 import org.sonar.api.measures.FileLinesContext;
 import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.testfixtures.log.LogTesterJUnit5;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -46,7 +47,6 @@ import static org.mockito.Mockito.verify;
 import static org.sonar.iac.common.extension.IacSensor.EXTENDED_LOGGING_PROPERTY_NAME;
 import static org.sonar.iac.common.predicates.CloudFormationFilePredicate.CLOUDFORMATION_FILE_IDENTIFIER_DEFAULT_VALUE;
 import static org.sonar.iac.common.predicates.CloudFormationFilePredicate.CLOUDFORMATION_FILE_IDENTIFIER_KEY;
-import static org.sonar.iac.common.testing.IacTestUtils.SONARLINT_RUNTIME_9_9;
 
 public abstract class AbstractSensorTest {
 
@@ -73,7 +73,7 @@ public abstract class AbstractSensorTest {
     settings.setProperty(EXTENDED_LOGGING_PROPERTY_NAME, "true");
     context = spy(SensorContextTester.create(baseDir).setSettings(settings));
     context.setSettings(settings);
-    sonarLintContext = spy(SensorContextTester.create(baseDir).setRuntime(SONARLINT_RUNTIME_9_9).setSettings(settings));
+    sonarLintContext = spy(SensorContextTester.create(baseDir).setSettings(settings));
   }
 
   protected abstract String getActivationSettingKey();

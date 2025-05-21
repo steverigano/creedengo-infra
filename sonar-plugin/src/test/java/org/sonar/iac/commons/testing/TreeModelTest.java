@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.greencodeinitiative.creedengo.testing;
+package org.sonar.iac.commons.testing;
 import com.sonar.sslr.api.RecognitionException;
 import com.sonar.sslr.api.typed.ActionParser;
 import org.sonar.iac.common.api.tree.HasComments;

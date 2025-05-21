@@ -17,6 +17,11 @@
  */
 package org.greencodeinitiative.creedengo.kubernetes.checks;
 
+import static org.sonar.iac.commons.testing.IacTestUtils.addFileToSensorContext;
+import static org.sonar.iac.commons.testing.IacTestUtils.inputFile;
+import static org.sonar.iac.commons.testing.Verifier.contentToTmp;
+import static org.sonar.iac.common.filesystem.FileSystemUtils.retrieveHelmProjectFolder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -31,8 +36,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
+
 import org.apache.commons.io.FileUtils;
-import org.greencodeinitiative.creedengo.testing.Verifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.fs.InputFile;
@@ -52,6 +57,7 @@ import org.sonar.iac.common.extension.visitors.InputFileContext;
 import org.sonar.iac.common.extension.visitors.TreeContext;
 import org.sonar.iac.common.extension.visitors.TreeVisitor;
 import org.sonar.iac.common.yaml.YamlParser;
+import org.sonar.iac.commons.testing.Verifier;
 import org.sonar.iac.helm.HelmEvaluator;
 import org.sonar.iac.helm.HelmFileSystem;
 import org.sonar.iac.helm.tree.api.Node;
@@ -68,8 +74,8 @@ import org.sonar.iac.kubernetes.visitors.LocationShifter;
 import org.sonar.iac.kubernetes.visitors.ProjectContextEnricherVisitor;
 import org.sonar.iac.kubernetes.visitors.ProjectContextImpl;
 import org.sonar.iac.kubernetes.visitors.SecondaryLocationLocator;
-import org.sonarsource.analyzer.commons.*;
-import static org.sonar.iac.common.filesystem.FileSystemUtils.retrieveHelmProjectFolder;
+import org.sonarsource.analyzer.commons.checks.verifier.MultiFileVerifier;
+
 
 public class KubernetesVerifier {
 
@@ -84,7 +90,7 @@ public class KubernetesVerifier {
     var initialization = initializeVerification(templateFileName, fileNames);
     var inputFileContext = initialization.first();
     var commentsVisitor = initialization.second();
-    Verifier.verify(PARSER, inputFileContext, check,
+    org.sonar.iac.commons.testing.Verifier.verify(PARSER, inputFileContext, check,
       multiFileVerifier -> {
         // Prepare project context inside this lambda so that it happens after parsing. HelmInputFileContext
         // is fully initialized during parsing (i.e. additional files are discovered and added).

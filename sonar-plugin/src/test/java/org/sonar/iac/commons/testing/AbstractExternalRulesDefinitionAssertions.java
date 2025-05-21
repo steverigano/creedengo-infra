@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.greencodeinitiative.creedengo.testing;
+package org.sonar.iac.commons.testing;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
@@ -56,13 +56,5 @@ public class AbstractExternalRulesDefinitionAssertions {
   public static void assertNoRepositoryIsDefined(RulesDefinition.Context context, AbstractExternalRulesDefinition rulesDefinition) {
     assertThat(context.repositories()).isEmpty();
     assertThat(rulesDefinition.getRuleLoader()).isNull();
-  }
-
-  public static Stream<Arguments> externalRepositoryShouldBeInitializedWithSonarRuntime() {
-    return Stream.of(
-      // sonarRuntime, shouldSupportCCT
-      Arguments.of(SONAR_QUBE_10_6_CCT_SUPPORT_MINIMAL_VERSION, true),
-      Arguments.of(SONAR_QUBE_9_9, false),
-      Arguments.of(SONARLINT_RUNTIME_9_9, false));
   }
 }
