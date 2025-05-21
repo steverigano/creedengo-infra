@@ -55,6 +55,7 @@
         <version.maven-exec>3.5.0</version.maven-exec>
         <version.maven-shade>3.6.0</version.maven-shade>
         <version.protobuf>4.31.0</version.protobuf>
+        <sonarjava.version>8.14.0.39102</sonarjava.version>
         <version.license-maven-plugin>5.0.0</version.license-maven-plugin>
         <version.sonar-iac>1.24.0.7839</version.sonar-iac>
         <version.snakeyaml>2.4</version.snakeyaml>
@@ -62,6 +63,7 @@
         <version.mockito>5.17.0</version.mockito>
         <version.assertj>3.27.3</version.assertj>
         <version.jacoco>0.8.12</version.jacoco>
+        <version.sonar-maven-plugin>5.1.0.4751</version.sonar-maven-plugin>
         <version.test-it.sonarqube>25.5.0.107428</version.test-it.sonarqube>
 
             <!-- URL of the Maven repository where sonarqube will be downloaded -->
@@ -89,6 +91,7 @@
             <groupId>org.green-code-initiative</groupId>
             <artifactId>creedengo-rules-specifications</artifactId>
             <version>${version.creedengo-rules-specifications}</version>
+<!--             <classifier>kubernetes</classifier> -->
         </dependency>
         <dependency>
             <groupId>org.sonarsource.iac</groupId>
@@ -189,6 +192,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <dependency>
             <groupId>org.sonarsource.java</groupId>
             <artifactId>test-classpath-reader</artifactId>
             <version>8.8.0.37665</version>
@@ -218,6 +226,13 @@
             <version>1.18.36</version>
             <scope>test</scope>
         </dependency>
+         <!-- TEST sources dependencies -->
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>java-checks-testkit</artifactId>
+            <version>${sonarjava.version}</version>
+            <scope>test</scope>				   
+        </dependency>       
     </dependencies>
 
     <build>
@@ -422,6 +437,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${version.sonar-maven-plugin}</version>
             </plugin>
         </plugins>
     </build>

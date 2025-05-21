@@ -44,6 +44,7 @@ public class UseOfProbesCheck implements IacCheck {
     if (!ProbeFound) {
       kubernetesContext.reportIssueNoLineShift(commandNode.textRange(), MESSAGE);
     }
+    
   }
 
   private static boolean containsProbe(Node node) {
