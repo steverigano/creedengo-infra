@@ -8,9 +8,6 @@ on:
 permissions:
   packages: write
 
-env:
-  NODE_VERSION: 20.x
-
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
@@ -22,13 +19,6 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          registry-url: "https://registry.npmjs.org"
-
-
   publish-github:
     runs-on: ubuntu-latest
     steps:
@@ -36,20 +26,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Configure GitHub Packages registry
-        uses: bduff9/use-npmrc@v2.0.0
-        with:
-          working-directory: eslint-plugin
-          dot-npmrc: |
-            //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
-            @${{ github.repository_owner }}:registry=https://npm.pkg.github.com
-            always-auth=true
 
       - name: Publish package on GitHub Packages
         run: npm publish
