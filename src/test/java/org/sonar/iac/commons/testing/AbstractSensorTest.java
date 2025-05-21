@@ -131,13 +131,13 @@ public abstract class AbstractSensorTest {
       .orElseThrow(() -> new RuntimeException("Duration statistics should be enabled for sensor"));
   }
 
-/*   protected void verifyLinesOfCodeTelemetry(int expectedLinesOfCode) {
+   protected void verifyLinesOfCodeTelemetry(int expectedLinesOfCode) {
     if (expectedLinesOfCode == 0) {
       verify(context, never()).addTelemetryProperty(eq(telemetryLoCKey), anyString());
     } else {
       verify(context).addTelemetryProperty(telemetryLoCKey, String.valueOf(expectedLinesOfCode));
     }
-  } */
+  } 
 
   protected abstract Sensor sensor(CheckFactory checkFactory);
 
